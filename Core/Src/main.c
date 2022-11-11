@@ -246,7 +246,7 @@ int main(void)
 	else if(avg_val < 11) brightness = 90;
 	else if(avg_val < 15) brightness = 80;
 	else if(avg_val < 18) brightness = 70;
-	else if(avg_val < 22) brightness = 60;
+	else if(avg_val < 21) brightness = 60;
 	else if(avg_val < 26) brightness = 50;
 	else if(avg_val < 31) brightness = 40;
 	else if(avg_val < 37) brightness = 30;
