@@ -254,7 +254,7 @@ int main(void)
 	else if(avg_val < 50) brightness = 10;
 	else brightness = 0;
 
-	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, brightness * 650);
+	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, brightness * 655);
 
     /* USER CODE BEGIN 3 */
   }
