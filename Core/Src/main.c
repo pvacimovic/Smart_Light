@@ -33,6 +33,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define BRIGHTNESS_MAX 100
+#define BRIGHTNESS_MIN 0
+#define DISTANCE_MAX 50
+#define DISTANCE_MIN 8
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -170,6 +175,17 @@ void display_distance(uint8_t num)
 	SSD1306_UpdateScreen();
 }
 
+uint16_t get_brightness(uint8_t distance)
+{
+  if (distance < DISTANCE_MIN) {
+        distance = DISTANCE_MIN;
+    } else if (distance > DISTANCE_MAX) {
+        distance = DISTANCE_MAX;
+    }
+    // Map distance to brightness
+    return BRIGHTNESS_MAX - ((distance - DISTANCE_MIN) * (BRIGHTNESS_MAX - BRIGHTNESS_MIN) / (DISTANCE_MAX - DISTANCE_MIN));
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -242,17 +258,7 @@ int main(void)
 
 	display_distance(avg_val);
 
-	if(avg_val < 8) brightness = 100;
-	else if(avg_val < 11) brightness = 90;
-	else if(avg_val < 15) brightness = 80;
-	else if(avg_val < 18) brightness = 70;
-	else if(avg_val < 21) brightness = 60;
-	else if(avg_val < 26) brightness = 50;
-	else if(avg_val < 31) brightness = 40;
-	else if(avg_val < 37) brightness = 30;
-	else if(avg_val < 43) brightness = 20;
-	else if(avg_val < 50) brightness = 10;
-	else brightness = 0;
+  brightness = get_brightness(avg_val);
 
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, brightness * 655);
 
